@@ -1,11 +1,12 @@
-from django.db import migrations, connections
+from django.db import migrations
 
-def transfer_data(apps, schema_editor):
-        
+def data_transfer(apps, schema_editor):
+
     ProfileToTransfert = apps.get_model('oc_lettings_site', 'Profile')
     Profile = apps.get_model('profiles', 'Profile')
     for profile_to_transfert in ProfileToTransfert.objects.all():
-        Profile.objects.create(ProfileToTransfert)
+        Profile.objects.create(user = profile_to_transfert.user,
+                               favorite_city = profile_to_transfert.favorite_city)
 
 
 class Migration(migrations.Migration):
@@ -15,5 +16,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(transfer_data),
+        migrations.RunPython(data_transfer),
     ]
