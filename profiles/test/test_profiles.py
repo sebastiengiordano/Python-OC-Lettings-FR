@@ -5,7 +5,10 @@ import pytest
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     'url, apps',
-    [['profiles:index', ('home:index', 'lettings:index')]])
+    [
+        ['profiles:index',
+         ('home:index', 'lettings:index')]
+    ])
 def test_profiles_index(client, url, apps, create_test_profiles):
     url = reverse(url)
     urls_redirection_apps = [reverse(app) for app in apps]
@@ -29,8 +32,7 @@ def test_profiles_index(client, url, apps, create_test_profiles):
     'profiles_url, apps',
     [
         ['profiles:profile',
-         ('profiles:index', 'home:index', 'lettings:index')
-        ]
+         ('profiles:index', 'home:index', 'lettings:index')]
     ])
 def test_profiles_detail(client, profiles_url, apps, create_test_profiles):
     urls_redirection_apps = [reverse(app) for app in apps]
