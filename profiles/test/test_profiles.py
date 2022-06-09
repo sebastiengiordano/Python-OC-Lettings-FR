@@ -29,7 +29,7 @@ def test_profiles_index(client, url, apps, create_test_profiles):
     'profiles_url, apps',
     [
         ['profiles:profile',
-         ('profiles:index', 'home:index', 'profiles:index')
+         ('profiles:index', 'home:index', 'lettings:index')
         ]
     ])
 def test_profiles_detail(client, profiles_url, apps, create_test_profiles):
@@ -48,11 +48,10 @@ def test_profiles_detail(client, profiles_url, apps, create_test_profiles):
 
         user = profile.user
         user_detail = [
-            str(user),
             f"First name: {user.first_name}",
-            f"Last name:  {user.last_name}",
-            f"{user.zip_code}",
-            f"{user.country_iso_code}"]
+            f"Last name: {user.last_name}",
+            f"Email: {user.email}",
+            f"Favorite city: {profile.favorite_city}"]
         for information in user_detail:
             assert f"""<p>{information}</p>""".encode('utf-8') in response.content
 

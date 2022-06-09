@@ -46,7 +46,7 @@ def test_lettings_detail(client, lettings_url, apps,
         assert response.status_code == 200
 
         assert f"""<title>{letting.title}</title>""".encode('utf-8') in response.content
-        assert f"""<h1>{letting.h1}</title>""".encode('utf-8') in response.content
+        assert f"""<h1>{letting.title}</h1>""".encode('utf-8') in response.content
 
         address = letting.address
         address_detail = [
