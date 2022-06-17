@@ -24,4 +24,4 @@ jobs:
 workflows:
   complete_deploy:
     jobs:
-      - build_and_test
+      - build
