@@ -1,7 +1,33 @@
-# CircleCI configuration file
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.0.3
+  heroku: circleci/heroku@1.2.6
+
 jobs:
-  build-and-test:
+  build_and_test:
     docker:
-      - image: cimg/python:default
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Configure environment
+          command: python -m venv .venv
+      - run:
+          name: Upgrade pip
+          command: python -m pip install --upgrade pip
+      - run:
+          name: Install dependencies
+          command: python -m pip install -r requirements.txt
+      - run:
+          name: Check linting
+          command: python -m flake8
+      - run:
+          name: Run tests
+          command: python -m pytest
+
+
+workflows:
+  complete_deploy:
+    jobs:
+      - build_and_test
