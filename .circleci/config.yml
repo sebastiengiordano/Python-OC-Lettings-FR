@@ -8,8 +8,7 @@ jobs:
       - checkout
       - run:
           name: Managed dependencies
-          command: |
-            python --version
+          command: ECHO Test
 
 
 workflows:
