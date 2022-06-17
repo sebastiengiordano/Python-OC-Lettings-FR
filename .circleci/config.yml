@@ -12,10 +12,5 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-        pkg-manager: pip
-      - run:
-        name: Lint
-        command: python -m flake8
-      - run:
-        name: Run tests
-        command: python -m pytest
+      - run: python -m flake8
+      - run: python -m pytest
