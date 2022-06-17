@@ -1,29 +1,23 @@
 version: 2.1
 
-orbs:
-  docker: circleci/docker@2.0.3
-  heroku: circleci/heroku@1.2.6
-
 jobs:
-  build_and_test:
+  build:
     docker:
-      - image: cimg/python:3.9
+      - image: circleci/python:3.9
     steps:
       - checkout
       - run:
-          name: Configure environment
-          command: python -m venv .venv
+          name: Managed dependencies
+          command: |
+            python -m venv venv
+            . venv/Script/activate
+            python -m pip install --upgrade pip
+            python -m pip install -r requirements.txt
       - run:
-          name: Upgrade pip
-          command: python -m pip install --upgrade pip
-      - run:
-          name: Install dependencies
-          command: python -m pip install -r requirements.txt
-      - run:
-          name: Check linting
+          name: Lint
           command: python -m flake8
       - run:
-          name: Run tests
+          name: Tests
           command: python -m pytest
 
 
