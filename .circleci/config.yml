@@ -2,20 +2,20 @@
 version: 2.1
 
 orbs:
-	python: circleci/python@2.0.3
-	heroku: circleci/heroku@1.2.6
+  python: circleci/python@2.0.3
+  heroku: circleci/heroku@1.2.6
 
 jobs:
-	build-and-test:
-		docker:
-			- image: cimg/python:default
-		steps:
-			- checkout
-			- python/install-packages:
-				pkg-manager: pip
-			- run:
-				name: Lint
-				command: python -m flake8
-			- run:
-				name: Run tests
-				command: python -m pytest
+  build-and-test:
+    docker:
+      - image: cimg/python:default
+    steps:
+      - checkout
+      - python/install-packages:
+        pkg-manager: pip
+      - run:
+        name: Lint
+        command: python -m flake8
+      - run:
+        name: Run tests
+        command: python -m pytest
