@@ -9,16 +9,7 @@ jobs:
       - run:
           name: Managed dependencies
           command: |
-            python -m venv venv
-            . venv/Script/activate
-            python -m pip install --upgrade pip
-            python -m pip install -r requirements.txt
-      - run:
-          name: Lint
-          command: python -m flake8
-      - run:
-          name: Tests
-          command: python -m pytest
+            python --version
 
 
 workflows:
