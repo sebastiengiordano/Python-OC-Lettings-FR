@@ -8,7 +8,9 @@ jobs:
       - checkout
       - run:
           name: Managed dependencies
-          command: ECHO Test
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
 
 
 workflows:
