@@ -8,12 +8,4 @@ jobs:
       - checkout
       - run:
           name: Managed dependencies
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-
-
-workflows:
-  complete_deploy:
-    jobs:
-      - build
+          command: echo 'Hello World!'
