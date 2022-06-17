@@ -1,16 +1,18 @@
 # CircleCI configuration file
 version: 2.1
 
-orbs:
-  python: circleci/python@2.0.3
-  heroku: circleci/heroku@1.2.6
 
 jobs:
-  build-and-test:
-    docker:
-      - image: cimg/python:default
-    steps:
-      - checkout
-      - python/install-packages:
-      - run: python -m flake8
-      - run: python -m pytest
+    build-and-test:
+        docker:
+            - image: cimg/python:3.9
+        steps:
+            - checkout
+            - python/install-packages:
+                pkg-manager: pip
+            - run:
+                name: Lint
+                command: flake8
+            - run:
+                name: Run tests
+                command: pytest
