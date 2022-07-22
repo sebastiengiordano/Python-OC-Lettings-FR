@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: sebastiengiordano/oc_lettings_site/python:3.9
+      - image: sebastiengiordano/oc_lettings_site
         auth:
           username: $DOCKER_ID
           password: $DOCKER_PWD
