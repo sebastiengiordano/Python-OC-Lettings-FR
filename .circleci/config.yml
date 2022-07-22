@@ -16,7 +16,8 @@ jobs:
 
 workflows:
   version: 2.1
-  jobs:
-    - build:
-        context:
-          - docker-env-var
+  test_build_job:
+    jobs:
+      - build:
+          context:
+            - docker-env-var
