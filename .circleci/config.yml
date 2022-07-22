@@ -2,6 +2,8 @@ version: 2.1
 
 jobs:
   build:
+    context:
+      - docker-env-var
     docker:
       - image: sebastiengiordano/oc_lettings_site/python:3.9
         auth:
@@ -12,10 +14,3 @@ jobs:
       - run:
           name: Managed dependencies
           command: echo 'Hello World!'
-
-
-workflows:
-    jobs:
-      - build:
-          context:
-            - docker-env-var
