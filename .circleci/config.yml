@@ -12,5 +12,11 @@ jobs:
       - run:
           name: Managed dependencies
           command: echo 'Hello World!'
-    context:
-      - docker-env-var
+
+
+workflows:
+  version: 2.1
+  jobs:
+    - build:
+        context:
+          - docker-env-var
