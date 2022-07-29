@@ -14,12 +14,17 @@ jobs:
       - run: # install and activate virtual environment with pip
           name: Install Python Dependencies
           command: |
+            python -m venv venv
+            . venv/bin/activate
             python -m pip install --upgrade pip
             python -m pip install -r requirements.txt
       - save_cache: # ** special step to save dependency cache **
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
+      - run:
+          name: Activate virtual environment
+          command: . venv/bin/activate
       - run:
           name: Lint
           command: python -m flake8
