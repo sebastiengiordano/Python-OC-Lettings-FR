@@ -9,17 +9,12 @@ jobs:
           password: $DOCKER_PWD
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
-      - python/install-packages:
-          pip-dependency-file: requirements.txt
-          pkg-manager: pip
       - run:
-        name: Lint
-        command: python -m flake8
+          name: Lint
+          command: python -m flake8
       - run:
-        name: Run tests
-        command: python -m pytest
+          name: Run tests
+          command: python -m pytest
 
 
 workflows:
