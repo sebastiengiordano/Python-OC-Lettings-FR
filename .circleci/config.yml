@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build-and-test:
     docker:
       - image: sebastiengiordano/oc_lettings_site
         auth:
@@ -9,15 +9,20 @@ jobs:
           password: $DOCKER_PWD
     steps:
       - checkout
+      - python/install-packages:
+        pkg-manager: pip
+      - run
+        name: Lint
+        command: python -m flake8
       - run:
-          name: Managed dependencies
-          command: echo 'Hello World!'
+        name: Run tests
+        command: python -m pytest
 
 
 workflows:
   version: 2.1
-  test_build_job:
+  build_and_test:
     jobs:
-      - build:
+      - build-and-test:
           context:
             - docker-env-var
