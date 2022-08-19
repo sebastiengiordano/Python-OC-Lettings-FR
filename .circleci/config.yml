@@ -14,13 +14,13 @@ workflows:
   qa_commit:
     jobs:
       - build-and-test:
-          context:
-            - docker-env-var
           filters:
             branches:
               only:
                 - cicd/docker_test
       - build-push-docker:
+          context:
+            - docker-env-var
           requires:
             - build-and-test
       # - deploy:
