@@ -21,9 +21,9 @@ workflows:
       - build-push-docker:
           requires:
             - build-and-test
-      - deploy:
-          requires:
-            - build-push-docker
+      # - deploy:
+      #     requires:
+      #       - build-push-docker
   dev_commit:
     jobs:
       - build-and-test:
@@ -42,9 +42,10 @@ workflows:
       - build-push-docker:
           requires:
             - approve-build
-      - deploy:
-          requires:
-            - build-push-docker
+      # - deploy:
+      #     requires:
+      #       - build-push-docker
+
 jobs:
   build-and-test:
     docker:
@@ -62,3 +63,18 @@ jobs:
       - run:
           name: Run tests
           command: python -m pytest
+
+  build-push-docker:
+    executor: my-machine
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: docker build -t $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+            docker tag $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 $DOCKER_USER/oc-lettings:lastest
+            docker push $DOCKER_USER/oc-lettings:$CIRCLE_SHA1
+            docker push $DOCKER_USER/oc-lettings:lastest
