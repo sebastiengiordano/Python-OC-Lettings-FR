@@ -23,9 +23,9 @@ workflows:
             - docker-env-var
           requires:
             - build-and-test
-      # - deploy:
-      #     requires:
-      #       - build-push-docker
+      - deploy:
+          requires:
+            - build-push-docker
   dev_commit:
     jobs:
       - build-and-test:
@@ -44,9 +44,9 @@ workflows:
       - build-push-docker:
           requires:
             - approve-build
-      # - deploy:
-      #     requires:
-      #       - build-push-docker
+      - deploy:
+          requires:
+            - build-push-docker
 
 jobs:
   build-and-test:
@@ -73,7 +73,22 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-            docker login -u $DOCKER_ID --password-stdin
+            echo $DOCKER_PWD | docker login -u $DOCKER_ID --password-stdin
             docker tag $DOCKER_ID/oc-lettings:$CIRCLE_SHA1 $DOCKER_ID/oc-lettings:lastest
             docker push $DOCKER_ID/oc-lettings:$CIRCLE_SHA1
             docker push $DOCKER_ID/oc-lettings:lastest
+
+
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run: heroku maintenance:on --app $HEROKU_APP_NAME
+      - run: heroku config:set BUILD_NUMBER=$CIRCLE_BUILD_NUM -a $HEROKU_APP_NAME
+      - run: heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
+      - run: heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
+      - run: heroku stack:set heroku-20 -a $HEROKU_APP_NAME
+      - run: heroku maintenance:off --app $HEROKU_APP_NAME
+      - heroku/deploy-via-git:
+          force: true
