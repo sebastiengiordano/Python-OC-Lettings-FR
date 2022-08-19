@@ -30,7 +30,7 @@ jobs:
           command: python -m flake8
       - run:
           name: Run tests
-          command: ./venv/Script/python -m pytest
+          command: ./venv/scripts/python -m pytest
 
 
 workflows:
