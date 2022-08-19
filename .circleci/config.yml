@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-            echo $DOCKER_PWD | docker login -u $DOCKER_ID --password-stdin
+            docker login -u $DOCKER_ID --password-stdin
             docker tag $DOCKER_ID/oc-lettings:$CIRCLE_SHA1 $DOCKER_ID/oc-lettings:lastest
             docker push $DOCKER_ID/oc-lettings:$CIRCLE_SHA1
             docker push $DOCKER_ID/oc-lettings:lastest
