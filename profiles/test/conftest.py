@@ -35,6 +35,7 @@ def profile__data_for_test():
         }
     ]
 
+
 @pytest.fixture
 def create_test_profiles(profile__data_for_test):
     for user_data in profile__data_for_test:
