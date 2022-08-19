@@ -53,7 +53,10 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run
+      - run:
+          name: Activate virtual environment
+          command: . venv/bin/activate
+      - run:
           name: Lint
           command: python -m flake8
       - run:
