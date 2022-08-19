@@ -1,0 +1,61 @@
+# CircleCI configuration file
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+  heroku: circleci/heroku@1.2.6
+
+executors:
+  my-machine:
+    machine: true
+    working_directory: /tmp/workspace
+
+workflows:
+  qa_commit:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              only:
+                - cicd/docker_test
+      - build-push-docker:
+          requires:
+            - build-and-test
+      - deploy:
+          requires:
+            - build-push-docker
+  dev_commit:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              ignore:
+                - qa
+  dev-built-and-deploy:
+    jobs:
+      - approve-build:
+          type: approval
+          filters:
+            branches:
+              ignore:
+                - qa
+      - build-push-docker:
+          requires:
+            - approve-build
+      - deploy:
+          requires:
+            - build-push-docker
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.9.5
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run
+          name: Lint
+          command: python -m flake8
+      - run:
+          name: Run tests
+          command: python -m pytest
