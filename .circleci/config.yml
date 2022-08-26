@@ -24,15 +24,10 @@ workflows:
           requires:
             - build-and-test
       - deploy:
+          context:
+            - heroku-env-var
           requires:
             - build-push-docker
-  dev_commit:
-    jobs:
-      - build-and-test:
-          filters:
-            branches:
-              ignore:
-                - qa
   dev-built-and-deploy:
     jobs:
       - approve-build:
@@ -45,6 +40,8 @@ workflows:
           requires:
             - approve-build
       - deploy:
+          context:
+            - heroku-env-var
           requires:
             - build-push-docker
 
