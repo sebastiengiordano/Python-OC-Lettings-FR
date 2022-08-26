@@ -72,15 +72,14 @@ jobs:
 
 
   deploy:
-    executor: heroku/default
+    executor: my-machine
     steps:
       - checkout
-      - heroku/install
-      - run: heroku maintenance:on --app $HEROKU_APP_NAME
-      - run: heroku config:set BUILD_NUMBER=$CIRCLE_BUILD_NUM -a $HEROKU_APP_NAME
-      - run: heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
-      - run: heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
-      - run: heroku stack:set heroku-20 -a $HEROKU_APP_NAME
-      - run: heroku maintenance:off --app $HEROKU_APP_NAME
-      - heroku/deploy-via-git:
-          force: true
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:login
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push -a oc-lettings--sgio web
+            HEROKU_API_KEY=$HEROKU_API_KEY heroku container:release -a oc-lettings--sgio web
+
