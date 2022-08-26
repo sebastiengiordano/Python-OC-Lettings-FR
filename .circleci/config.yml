@@ -11,7 +11,7 @@ executors:
     working_directory: /tmp/workspace
 
 workflows:
-  qa_commit:
+  qa_built-test-deploy:
     jobs:
       - build-and-test:
           filters:
@@ -28,7 +28,7 @@ workflows:
             - heroku-env-var
           requires:
             - build-push-docker
-  dev-built-and-deploy:
+  dev-built-and-test:
     jobs:
       - approve-build:
           type: approval
@@ -36,14 +36,9 @@ workflows:
             branches:
               ignore:
                 - qa
-      - build-push-docker:
+      - build-and-test:
           requires:
             - approve-build
-      - deploy:
-          context:
-            - heroku-env-var
-          requires:
-            - build-push-docker
 
 jobs:
   build-and-test:
