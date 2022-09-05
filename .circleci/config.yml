@@ -1,0 +1,83 @@
+# CircleCI configuration file
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+
+executors:
+  my-machine:
+    machine: true
+    working_directory: /tmp/workspace
+
+workflows:
+  qa_built-test-deploy:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              only:
+                - cicd/docker
+      - build-push-docker:
+          context:
+            - docker-env-var
+          requires:
+            - build-and-test
+      - deploy:
+          context:
+            - heroku-env-var
+          requires:
+            - build-push-docker
+  dev-built-and-test:
+    jobs:
+      - approve-build:
+          type: approval
+          filters:
+            branches:
+              ignore:
+                - qa
+      - build-and-test:
+          requires:
+            - approve-build
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.9.5
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Lint
+          command: python -m flake8
+      - run:
+          name: Run tests
+          command: python -m pytest
+
+  build-push-docker:
+    executor: my-machine
+    steps:
+      - checkout
+      - run:
+          name: Build Docker image
+          command: docker build -t $DOCKER_ID/oc-lettings:$CIRCLE_SHA1 .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo $DOCKER_PWD | docker login -u $DOCKER_ID --password-stdin
+            docker tag $DOCKER_ID/oc-lettings:$CIRCLE_SHA1 $DOCKER_ID/oc-lettings:lastest
+            docker push $DOCKER_ID/oc-lettings:$CIRCLE_SHA1
+            docker push $DOCKER_ID/oc-lettings:lastest
+
+
+  deploy:
+    executor: my-machine
+    steps:
+      - checkout
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=$HEROKU_TOKEN heroku container:login
+            HEROKU_API_KEY=$HEROKU_TOKEN heroku container:push -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=$HEROKU_TOKEN heroku container:release -a $HEROKU_APP_NAME web
