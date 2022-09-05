@@ -20,5 +20,5 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["python3", "manage.py", "runserver", "127.0.0.1:8000"]
+CMD ["python3", "manage.py", "runserver", "127.0.0.1:$PORT"]
 # CMD gunicorn oc_lettings_site.wsgi:application --bind :$PORT
