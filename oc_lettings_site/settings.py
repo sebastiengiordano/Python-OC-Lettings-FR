@@ -2,6 +2,7 @@ import os
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -114,9 +115,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 # Logging error with sentry-sdk
+def _require_env(name):
+    """Raise an error if the environment variable isn't defined"""
+    value = os.getenv(name)
+    if value is None:
+        raise ImproperlyConfigured('Required environment variable "{}" is not set.'.format(name))
+    return value
+
+
 sentry_sdk.init(
-    dsn=os.getenv('SENTRY_DSN'),
+    dsn=_require_env('SENTRY_DSN'),
     integrations=[
         DjangoIntegration(),
     ],
