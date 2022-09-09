@@ -16,7 +16,7 @@ workflows:
           filters:
             branches:
               only:
-                - qa
+                - logging/sentry
       - build-push-docker:
           context:
             - docker-env-var
