@@ -117,16 +117,8 @@ STATIC_URL = '/static/'
 
 
 # Logging error with sentry-sdk
-def _require_env(name):
-    """Raise an error if the environment variable isn't defined"""
-    value = os.getenv(name)
-    if value is None:
-        raise ImproperlyConfigured('Required environment variable "{}" is not set.'.format(name))
-    return value
-
-
 sentry_sdk.init(
-    dsn=_require_env('SENTRY_DSN'),
+    dsn='SENTRY_DSN',
     integrations=[
         DjangoIntegration(),
     ],
