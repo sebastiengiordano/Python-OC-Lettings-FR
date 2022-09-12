@@ -122,7 +122,7 @@ Pour se faire, dans votre compte CircleCI, allez :
 - Dans ces contexts, ajoutez les variables d'environnement avec `Add Environment Variables`.
 
 
-|   Nom des Variables  |   Description   |   Commentaire   |
+ |   Nom des Variables  |   Description   |   Commentaire   |
 |---    |---   |
 |   DOCKER_ID   |   Nom de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
 |   DOCKER_PWD   |   Mot de passe de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
