@@ -130,16 +130,6 @@ Pour se faire, dans votre compte CircleCI, allez :
 |    SENTRY_DSN        | URL Sentry                             | Disponible sous "Project Settings"  |
 |    HEROKU_APP_NAME   | Le nom de l'application                | Disponible sous "Project Settings"  |
 
- | CircleCI variable | Description                                                                                      |
-|-------------------|--------------------------------------------------------------------------------------------------|
-| DOCKER_LOGIN      | Docker account username                                                                          |
-| DOCKER_PASSWORD   | Docker account password                                                                          |
-| DOCKER_REPO       | Docker repository name                                                                           |
-| HEROKU_API_KEY    | Heroku API Key, can be found in account settings (Heroku API KEY)                                |
-| HEROKU_APP_NAME   | Heroku app name: The deployed app will be accessed via `https://<HEROKU_APP_NAME>.herokuapp.com` |
-| HEROKU_TOKEN      | Heroku token, can be found in account settings (Heroku API Key) same as HEROKU_API_KEY           |
-| SECRET_KEY        | Django secret key that has been generated in your .env file                                      |
-| SENTRY_DSN        | Sentry project URL                                                                               |
 ## Ligne de commande utile
 
 ### Docker
@@ -183,3 +173,5 @@ heroku apps:open -a <HEROKU_APP_NAME>
 ## Logging
 
 Afin de collecter les anomalies, le module Sentry-sdk est configuré.
+Pour le tester, vous pouvez utiliser le chemin `/sentry-debug/`.
+Sous votre compte Sentry, dans le projet, lié à l'URL configuré dans la variable d'environnement SENTRY_DSN, vous retrouverez le log lié à l'anomalie généré par ce chemin (une division par 0).
