@@ -117,7 +117,7 @@ STATIC_URL = '/static/'
 
 # Logging error with sentry-sdk
 sentry_sdk.init(
-    dsn='SENTRY_DSN',
+    dsn=os.getenv('SENTRY_DSN'),
     integrations=[
         DjangoIntegration(),
     ],
