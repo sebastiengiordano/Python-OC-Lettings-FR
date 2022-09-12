@@ -122,14 +122,24 @@ Pour se faire, dans votre compte CircleCI, allez :
 - Dans ces contexts, ajoutez les variables d'environnement avec `Add Environment Variables`.
 
 
- |   Nom des Variables  |   Description   |   Commentaire   |
-|---    |---   |
-|   DOCKER_ID   |   Nom de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
-|   DOCKER_PWD   |   Mot de passe de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
-|   HEROKU_TOKEN |  Clef Heroku  |   Disponible sous "heroku-env-var"   |
-| SENTRY_DSN    | URL Sentry  |   Disponible sous "Project Settings"   |
-| HEROKU_APP_NAME | Le nom de l'application |   Disponible sous "Project Settings"   |
+|  Nom des Variables   |               Description              |             Commentaire             |
+|----------------------|----------------------------------------|-------------------------------------|
+|    DOCKER_ID         | Nom de votre compte DockerHub          | Disponible sous "docker-env-var"    |
+|    DOCKER_PWD        | Mot de passe de votre compte DockerHub | Disponible sous "docker-env-var"    |
+|    HEROKU_TOKEN      | Clef Heroku                            | Disponible sous "heroku-env-var"    |
+|    SENTRY_DSN        | URL Sentry                             | Disponible sous "Project Settings"  |
+|    HEROKU_APP_NAME   | Le nom de l'application                | Disponible sous "Project Settings"  |
 
+ | CircleCI variable | Description                                                                                      |
+|-------------------|--------------------------------------------------------------------------------------------------|
+| DOCKER_LOGIN      | Docker account username                                                                          |
+| DOCKER_PASSWORD   | Docker account password                                                                          |
+| DOCKER_REPO       | Docker repository name                                                                           |
+| HEROKU_API_KEY    | Heroku API Key, can be found in account settings (Heroku API KEY)                                |
+| HEROKU_APP_NAME   | Heroku app name: The deployed app will be accessed via `https://<HEROKU_APP_NAME>.herokuapp.com` |
+| HEROKU_TOKEN      | Heroku token, can be found in account settings (Heroku API Key) same as HEROKU_API_KEY           |
+| SECRET_KEY        | Django secret key that has been generated in your .env file                                      |
+| SENTRY_DSN        | Sentry project URL                                                                               |
 ## Ligne de commande utile
 
 ### Docker
