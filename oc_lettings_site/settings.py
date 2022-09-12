@@ -2,7 +2,6 @@ import os
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from django.core.exceptions import ImproperlyConfigured
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

@@ -122,13 +122,13 @@ Pour se faire, dans votre compte CircleCI, allez :
 - Dans ces contexts, ajoutez les variables d'environnement avec `Add Environment Variables`.
 
 
-|   Nom des Variables  |   Description   |   Commentaire   |
-|---    |---   |
-|   DOCKER_ID   |   Nom de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
-|   DOCKER_PWD   |   Mot de passe de votre compte DockerHub   |   Disponible sous "docker-env-var"   |
-|   HEROKU_TOKEN |  Clef Heroku  |   Disponible sous "heroku-env-var"   |
-| SENTRY_DSN    | URL Sentry  |   Disponible sous "Project Settings"   |
-| HEROKU_APP_NAME | Le nom de l'application |   Disponible sous "Project Settings"   |
+|  Nom des Variables   |               Description              |             Commentaire             |
+|----------------------|----------------------------------------|-------------------------------------|
+|    DOCKER_ID         | Nom de votre compte DockerHub          | Disponible sous "docker-env-var"    |
+|    DOCKER_PWD        | Mot de passe de votre compte DockerHub | Disponible sous "docker-env-var"    |
+|    HEROKU_TOKEN      | Clef Heroku                            | Disponible sous "heroku-env-var"    |
+|    SENTRY_DSN        | URL Sentry                             | Disponible sous "Project Settings"  |
+|    HEROKU_APP_NAME   | Le nom de l'application                | Disponible sous "Project Settings"  |
 
 ## Ligne de commande utile
 
@@ -173,3 +173,5 @@ heroku apps:open -a <HEROKU_APP_NAME>
 ## Logging
 
 Afin de collecter les anomalies, le module Sentry-sdk est configuré.
+Pour le tester, vous pouvez utiliser le chemin `/sentry-debug/`.
+Sous votre compte Sentry, dans le projet, lié à l'URL configuré dans la variable d'environnement SENTRY_DSN, vous retrouverez le log lié à l'anomalie généré par ce chemin (une division par 0).
