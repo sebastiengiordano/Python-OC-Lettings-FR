@@ -2,7 +2,7 @@
   <img src="https://user.oc-static.com/upload/2020/09/18/16004295603423_P11.png" />
 </p>
 
-**QA Branch :** [![CircleCI](https://circleci.com/gh/sebastiengiordano/Python-OC-Lettings-FR/tree/cicd/docker.svg?style=svg)](https://circleci.com/gh/sebastiengiordano/Python-OC-Lettings-FR/?branch=cicd%2Fdocker.svg?style=svg)
+**QA Branch :** [![CircleCI](https://circleci.com/gh/sebastiengiordano/Python-OC-Lettings-FR/tree/qa.svg?style=svg)](https://circleci.com/gh/sebastiengiordano/Python-OC-Lettings-FR/?branch=qa)
 
 ## Résumé
 
